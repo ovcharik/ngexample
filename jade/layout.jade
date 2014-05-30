@@ -3,27 +3,7 @@ html
   head
     title x01d | AngularJs example
     
-    // bootstrap
-    link( rel='stylesheet', href='vendor/bootstrap/dist/css/bootstrap.min.css' )
-    link( rel='stylesheet', href='vendor/bootstrap/dist/css/bootstrap-theme.min.css' )
-    
-    // hithlight
-    link( rel='stylesheet', href='highlight/github.css' )
-    script( src='highlight/highlight.pack.js' )
-    
-    // angular
-    script( src='vendor/angular/angular.js' )
-    script( src='vendor/angular-route/angular-route.js' )
-    
-    // users
-    script( src='js/directives/code_directive.js' )
-    script( src='js/directives/directives.js' )
-    
-    script( src='js/controllers/home_controller.js' )
-    script( src='js/controllers/todo_controller.js' )
-    script( src='js/controllers/controllers.js' )
-    
-    script( src='js/app.js' )
+    block depends
     
   body( ng-app='x01d' )
     include header

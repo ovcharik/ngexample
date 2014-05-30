@@ -1,6 +1,7 @@
 codeDirective = angular.module 'x01d-code', []
 
-codeDirective.directive 'code', () ->
+codeDirective.directive 'codeHightlight', () ->
   restrict: 'E'
   link: (scope, element, attrs) ->
-    element.html hljs.highlightAuto(element.text()).value
+    code = element.find('code')
+    code.html hljs.highlightAuto(code.text()).value if code.length
