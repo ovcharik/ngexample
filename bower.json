@@ -1,0 +1,20 @@
+{
+  "name": "ngexample",
+  "version": "0.0.0",
+  "authors": [
+    "ovcharik <maksim.ovcharik@gmail.com>"
+  ],
+  "description": "Angular app example for x01d",
+  "keywords": [
+    "AngulagJS",
+    "example",
+    "x01d"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "*",
+    "angular": "*",
+    "angular-route": "*",
+    "jquery": "~2.1.1"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "ngexample",
+  "version": "0.0.0",
+  "description": "Angular app example for x01d",
+  "main": "index.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "coffee index.coffee"
+  },
+  "keywords": [
+    "AngulagJS",
+    "example",
+    "x01d"
+  ],
+  "author": "ovcharik <maksim.ovcharik@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.3.2"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-jade": "^0.12.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}
