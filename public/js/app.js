@@ -1,7 +1,7 @@
 (function() {
   var app;
 
-  app = angular.module('x01d', ['ngRoute', 'x01d-controllers']);
+  app = angular.module('x01d', ['ngRoute', 'x01d-controllers', 'x01d-directives']);
 
   app.config([
     '$routeProvider', function($routeProvider) {

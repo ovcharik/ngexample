@@ -1,6 +1,7 @@
 app = angular.module 'x01d', [
   'ngRoute',
-  'x01d-controllers'
+  'x01d-controllers',
+  'x01d-directives'
 ]
 
 app.config [

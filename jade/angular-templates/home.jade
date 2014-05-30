@@ -1,2 +1,9 @@
 script( type='text/ng-template', id='home_tpl' )
-  h1 {{ message }}
+  h1( ng-click='changeTitle()' ) {{ message }}
+  pre
+    code
+      | codeDirective = angular.module 'x01d-code', []
+      | codeDirective.directive 'code', () ->
+      |   restrict: 'E'
+      |   link: (scope, element, attrs) ->
+      |     element.html hljs.highlightAuto(element.text()).value

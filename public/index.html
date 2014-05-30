@@ -5,9 +5,14 @@
     <!-- style-->
     <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap-theme.min.css">
+    <!-- hithlight-->
+    <link rel="stylesheet" href="highlight/github.css">
+    <script src="highlight/highlight.pack.js"></script>
     <!-- scripts-->
     <script src="vendor/angular/angular.js"></script>
     <script src="vendor/angular-route/angular-route.js"></script>
+    <script src="js/directives/code_directive.js"></script>
+    <script src="js/directives/directives.js"></script>
     <script src="js/controllers/home_controller.js"></script>
     <script src="js/controllers/todo_controller.js"></script>
     <script src="js/controllers/controllers.js"></script>
@@ -28,7 +33,12 @@
       <ng-view></ng-view>
     </div>
     <script type="text/ng-template" id="home_tpl">
-      <h1>{{ message }}</h1>
+      <h1 ng-click="changeTitle()">{{ message }}</h1>
+      <pre><code>codeDirective = angular.module 'x01d-code', []
+codeDirective.directive 'code', () ->
+  restrict: 'E'
+  link: (scope, element, attrs) ->
+    element.html hljs.highlightAuto(element.text()).value</code></pre>
     </script>
     <script type="text/ng-template" id="todo_tpl">
       <h1>{{ message }}</h1>
