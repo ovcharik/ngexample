@@ -8,12 +8,30 @@
     <!-- scripts-->
     <script src="vendor/angular/angular.js"></script>
     <script src="vendor/angular-route/angular-route.js"></script>
+    <script src="js/controllers/home_controller.js"></script>
+    <script src="js/controllers/todo_controller.js"></script>
+    <script src="js/controllers/controllers.js"></script>
+    <script src="js/app.js"></script>
   </head>
-  <body>
+  <body ng-app="x01d">
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
-        <div class="navbar-header"><a href="javascript:void(0)" class="navbar-brand">AngularJS Example</a></div>
+        <div class="navbar-header"><a href="#/home" class="navbar-brand">AngularJS Example</a>
+          <ul class="nav navbar-nav">
+                <li><a href="#/home">Home</a></li>
+                <li><a href="#/todo">ToDo list</a></li>
+          </ul>
+        </div>
       </div>
     </nav>
+    <div class="container">
+      <ng-view></ng-view>
+    </div>
+    <script type="text/ng-template" id="home_tpl">
+      <h1>{{ message }}</h1>
+    </script>
+    <script type="text/ng-template" id="todo_tpl">
+      <h1>{{ message }}</h1>
+    </script>
   </body>
 </html>

@@ -11,6 +11,16 @@ html
     script( src='vendor/angular/angular.js' )
     script( src='vendor/angular-route/angular-route.js' )
     
-    include angular-templates
-  body
+    
+    script( src='js/controllers/home_controller.js' )
+    script( src='js/controllers/todo_controller.js' )
+    script( src='js/controllers/controllers.js' )
+    
+    script( src='js/app.js' )
+    
+  body( ng-app='x01d' )
     include header
+    .container
+      ng-view
+    
+    include angular-templates

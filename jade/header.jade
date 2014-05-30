@@ -1,4 +1,10 @@
+mixin navlink(name, url)
+  li
+    a( href=url )= name
 nav.navbar.navbar-default.navbar-static-top
   .container
     .navbar-header
-      a.navbar-brand( href='javascript:void(0)' ) AngularJS Example
+      a.navbar-brand( href='#/home' ) AngularJS Example
+      ul.nav.navbar-nav
+        - each url, name in { 'Home': '#/home', 'ToDo list': '#/todo' }
+          +navlink(name, url)
