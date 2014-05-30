@@ -1,9 +1,24 @@
 script( type='text/ng-template', id='home_tpl' )
-  h1( ng-click='changeTitle()' ) {{ message }}
-  pre
-    code
-      | codeDirective = angular.module 'x01d-code', []
-      | codeDirective.directive 'code', () ->
-      |   restrict: 'E'
-      |   link: (scope, element, attrs) ->
-      |     element.html hljs.highlightAuto(element.text()).value
+  .row
+    .col-md-9
+      h2 Роутеры
+      pre
+        code
+          | app = angular.module 'x01d', [
+          |   'ngRoute'
+          | ]
+          | 
+          | app.config [
+          |   '$routeProvider',
+          |   ($routeProvider) ->
+          |     $routeProvider
+          |       .when '/home',
+          |         templateUrl: 'home_tpl'
+          |         controller:  'HomeController'
+          |       .when '/todo',
+          |         templateUrl: 'todo_tpl'
+          |         controller:  'TodoController'
+          |       .otherwise
+          |         redirectTo:  '/home'
+          | ]
+    .col-md-3
