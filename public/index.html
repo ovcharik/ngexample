@@ -121,12 +121,10 @@
     .btn-group
       button.btn.btn-default(
         ng-repeat='(i, icon) in data',
-        ng-class='{ active: isCurrent(i) }'
+        ng-class='{ active: isCurrent(i) }',
+        ng-click='setCurrent(i)'
       )
-        span.glyphicon(
-          class='{{icon}}',
-          ng-click='setCurrent(i)'
-        )</code></pre>
+        span.glyphicon( class='{{icon}}' )</code></pre>
                   </code-hightlight>
                 </pane>
                 <pane title="gallery.coffee">
@@ -157,7 +155,7 @@ galleryController.controller 'GalleryController', ($scope) ->
                   <section ng-controller="GalleryController as gallery">
                     <center><span style="font-size: 180px" class="glyphicon thumbnail {{ data[current] }}"></span>
                       <div class="btn-group">
-                        <button ng-repeat="(i, icon) in data" ng-class="{ active: isCurrent(i) }" class="btn btn-default"><span ng-click="setCurrent(i)" class="glyphicon {{icon}}"></span></button>
+                        <button ng-repeat="(i, icon) in data" ng-class="{ active: isCurrent(i) }" ng-click="setCurrent(i)" class="btn btn-default"><span class="glyphicon {{icon}}"></span></button>
                       </div>
                     </center>
                   </section>

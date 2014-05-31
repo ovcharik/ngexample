@@ -10,6 +10,7 @@ galleryController.controller 'GalleryController', ($scope) ->
   ]
   $scope.current = 0
   $scope.setCurrent = (c) ->
+    console.log c
     $scope.current = c || 0
   $scope.isCurrent = (c) ->
     return $scope.current == c

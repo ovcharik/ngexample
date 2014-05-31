@@ -91,12 +91,10 @@ script( type='text/ng-template', id='home_tpl' )
                     |     .btn-group
                     |       button.btn.btn-default(
                     |         ng-repeat='(i, icon) in data',
-                    |         ng-class='{ active: isCurrent(i) }'
+                    |         ng-class='{ active: isCurrent(i) }',
+                    |         ng-click='setCurrent(i)'
                     |       )
-                    |         span.glyphicon(
-                    |           class='{{icon}}',
-                    |           ng-click='setCurrent(i)'
-                    |         )
+                    |         span.glyphicon( class='{{icon}}' )
             pane( title='gallery.coffee' )
               code-hightlight
                 pre
@@ -129,11 +127,11 @@ script( type='text/ng-template', id='home_tpl' )
                   .btn-group
                     button.btn.btn-default(
                       ng-repeat='(i, icon) in data',
-                      ng-class='{ active: isCurrent(i) }'
+                      ng-class='{ active: isCurrent(i) }',
+                      ng-click='setCurrent(i)'
                     )
                       span.glyphicon(
-                        class='{{icon}}',
-                        ng-click='setCurrent(i)'
+                        class='{{icon}}'
                       )
       
       hr
