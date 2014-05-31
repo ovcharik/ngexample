@@ -2,6 +2,144 @@
 script( type='text/ng-template', id='home_tpl' )
   .row
     .col-md-9
+      .row
+        .container-fluid
+          h2 Фабрика, сервис, провайдер???
+          p
+            Грубо говоря, данные шаблоны позволяют насоздовать объектов в области видимости всего приложения.
+        
+        .container-fluid
+          h3 Factory
+          p
+            Возвращает результат выполнения функции
+          code-hightlight
+            pre
+              code
+                | app.factory, 'Foo', ->
+                |   {
+                |     property: 'bar'
+                |     method: -> @property
+                |   }
+          h4 Использование
+          code-hightlight
+            pre
+              code
+                | app.controller, 'BazCtrl', (Foo) ->
+                |   console.log Foo.method() # bar
+        
+        .container-fluid
+          h3 Service
+          p
+            | Возвращает объект класс (функции в js), то есть выполняется 
+            code new ServiceClass
+            |  и результат возвращается
+          code-hightlight
+            pre
+              code
+                | app.service, 'MyService', class
+                |   property: 'value'
+                |   method: -> @property
+          h4 Использование
+          p
+            | Используется сервис аналогично фабрике
+          code-hightlight
+            pre
+              code
+                | app.controller, 'BazCtrl', (MyService) ->
+                |   console.log MyService.method() # value
+        
+        .container-fluid
+          h3
+            Различия Service и Factory
+          code-hightlight
+            pre
+              code
+                | f = -> 'value'
+                | app.factory 'Foo', f == 'value'
+                | app.service 'Bar', f == new f
+        
+        .container-fluid
+          h3
+            | Provider
+          p
+            | Провайдер - это сервис с возможностью первичной настройки.
+          p
+            | Используется провайдер как и обычный сервис
+          code-hightlight
+            pre
+              code
+                | app.provider 'Foo', class
+                |   value = 'bar'
+                |   getValue: -> value
+                |   setValue: (v) -> value = v
+                |   $get: -> @getValue
+          p
+            code value
+            |  является приватной переменной, у провайдера есть методы 
+            code getValue
+            |  и 
+            code setValue
+            |  который возвращают или устанавливают значение переменной 
+            code value
+            | .
+          p
+            | Метод 
+            code $get
+            |  должен возвращать сервис, соответсвенно сервис 
+            code Foo
+            |  будет создан автоматически после запуска приложения.
+          p
+            | До запуска есть возможность сконфигурировать провайдер.
+          code-hightlight
+            pre
+              code
+                | app.config [
+                |   'FooProvider',
+                |   (FooProvider) ->
+                |     FooProvider.setValue('baz')
+                | ]
+          h4 Использование
+          code-hightlight
+            pre
+              code
+                | app.controller, 'BazCtrl', (Foo) ->
+                |   console.log Foo() # baz
+          p
+            | Таким образом сервис из провайдера образуется следующим образом:
+          code-hightlight
+            pre
+              code
+                | new (MyProvider.$get)
+        
+        .container-fluid
+          h3
+            code value
+            |  и 
+            code constant
+          p
+            | В angularjs есть два дополнительных сервиса 
+            code value
+            |  и 
+            code constant
+            | .
+          p
+            | Описываются они аналогично обычным сервисам
+          code-hightlight
+            pre
+              code
+                | app.constant 'FOO',
+                |   BAR: 'BAZ'
+                | 
+                | app.value 'foo',
+                |   bar: 'baz'
+          p
+            | И используются аналогично, в общем конкретных отличий нет, только описываться может только объект, а для констант значения нельзя изменять.
+        
+        .container-fluid
+          h3 Зачем весь этот зоопарк?
+          p
+            | Вообще в angularjs есть только провайдер, все остальное это семантические дополнения. И соответнно когда мы описываем сервис, фабрику или что-то еще, то провайдер создается в любом случае.
+      
       h2 Роутеры
       code-hightlight
         pre

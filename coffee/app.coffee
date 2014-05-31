@@ -5,7 +5,7 @@ app = angular.module 'x01d', [
 ]
 
 app.config [
-  '$routeProvider',
+  '$routeProvider'
   ($routeProvider) ->
     $routeProvider
       .when '/home',

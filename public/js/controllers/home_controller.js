@@ -3,6 +3,6 @@
 
   homeController = angular.module('x01d-home', []);
 
-  homeController.controller('HomeController', function($scope, $route) {});
+  homeController.controller('HomeController', function($scope) {});
 
 }).call(this);
