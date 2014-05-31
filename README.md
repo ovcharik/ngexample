@@ -15,3 +15,5 @@
     $ npm start
 
 и перейти на localhost:3000
+
+## [Githab pages](http://ovcharik.github.io/ngexample/)
