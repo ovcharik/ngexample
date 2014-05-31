@@ -1,4 +1,90 @@
-<!DOCTYPE html><html><head><title>x01d | AngularJs example</title><!-- bootstrap--><link rel="stylesheet" href="pages/stylesheet.css"><script src="pages/script.js"></script></head><body ng-app="x01d"><nav class="navbar navbar-default navbar-static-top"><div class="container"><div class="navbar-header"><a href="#/home" class="navbar-brand">AngularJS Example</a><ul class="nav navbar-nav"><li><a href="#/home">Home</a></li><li><a href="#/todo">ToDo list</a></li></ul></div></div></nav><div class="container"><ng-view></ng-view></div><script type="text/ng-template" id="home_tpl"><div class="row"><div class="col-md-9"><div class="row"><div class="container-fluid"><h2>Фабрика, сервис, провайдер???</h2><p>Грубо говоря, данные шаблоны позволяют насоздовать объектов в области видимости всего приложения.</p></div><div class="container-fluid"><h3>Factory</h3><p>Возвращает результат выполнения функции</p><code-hightlight><pre><code>app.factory, 'Foo', ->
+<!DOCTYPE html><html><head><title>x01d | AngularJs example</title><!-- bootstrap--><link rel="stylesheet" href="pages/stylesheet.css"><script src="pages/script.js"></script></head><body ng-app="x01d"><nav class="navbar navbar-default navbar-static-top"><div class="container"><div class="navbar-header"><a href="#/home" class="navbar-brand">AngularJS Example</a><ul class="nav navbar-nav"><li><a href="#/home">Home</a></li><li><a href="#/components">Components</a></li><li><a href="#/todo">ToDo list</a></li></ul></div></div></nav><div class="container"><ng-view></ng-view></div><script type="text/ng-template" id="home_tpl"><div class="row"><div class="container-fluid"><h2><a href="https://angularjs.org/" target="_blank">AngularJS</a></h2></div></div><div class="row"><div class="container-fluid"><h2>Возможности</h2><h3>Динамический html</h3><div class="row"><div class="col-md-8"><p>Технология <code>html</code>предоставляет хорошие средства для описания документа, но плохие для работы с ним.</p><p>Некоторые js фреймворки решают эту проблему, но накладывают свои ограничения в плане написания кода. AngularJS решат эту проблему, и в этом он чем то похож на Polymer.</p><p>Что бы начать работать с AngularJS даже не обязательно знать javascript.</p><code-hightlight><pre><code>.row
+  .col-sm-12
+    input( type='text', ng-model='v_name' placeholder='Введите имя' )
+  .col-sm-12( ng-show='v_name' )
+    hr
+    h3 Привет, {{ v_name }}!
+  .col-sm-12
+    hr
+  .col-sm-6
+    input( type='date',  ng-model='v_date' )
+    h4 {{ v_date | date }}
+  .col-sm-6
+    input( type='range', ng-model='v_range' )
+    h4 {{ v_range }}</code></pre></code-hightlight></div><div class="col-md-4"><div class="panel panel-default"><div class="panel-body"><div class="row"><div class="col-sm-12"><input type="text" ng-model="v_name" placeholder="Введите имя" class="form-control"></div><div ng-show="v_name" class="col-sm-12"><hr><h3>Привет, {{ v_name }}!</h3></div><div class="col-sm-12"><hr></div><div class="col-sm-6"><input type="date" ng-model="v_date" class="form-control"><h4>{{ v_date | date }}</h4></div><div class="col-sm-6"><input type="range" ng-model="v_range" class="form-control"><h4>{{ v_range | currency }}</h4></div></div></div></div><dl class="dl-horizontal"><dt><code>ng-model</code></dt><dd>Директива двухстороннего связывания данных</dd><dt><code>ng-show</code></dt><dd>Директива отвечающая за отображение элемента</dd><dt><code ng-non-bindable>{{ var [| filter ] }}</code></dt><dd>Переменная описанная в подобной структуре будет автоматически подставляться в html, также доступны различные фильтры отображения, типа <code>currency</code>, <code>date</code>, и т.д.</dd></dl></div></div><hr><h3>Контроллеры</h3><div class="row"><div class="col-md-8"><p>Контроллеры добавляют поведение html елементам. Позволяют автоматически изменять вид при обновлении модели и наоборот, без прослушивания событий и построения сложных коллбеков.</p><tabs><pane title="gallery.jade"><code-hightlight><pre><code>section( ng-controller='GalleryController as gallery' )
+  center
+    span.glyphicon.thumbnail(
+      style='font-size: 180px',
+      class='{{ data[current] }}'
+    )
+    .btn-group
+      button.btn.btn-default(
+        ng-repeat='(i, icon) in data',
+        ng-class='{ active: isCurrent(i) }'
+      )
+        span.glyphicon(
+          class='{{icon}}',
+          ng-click='setCurrent(i)'
+        )</code></pre></code-hightlight></pane><pane title="gallery.coffee"><code-hightlight><pre><code>galleryController = angular.module 'x01d-gallery', []
+ 
+galleryController.controller 'GalleryController', ($scope) ->
+  $scope.data = [
+    'glyphicon-asterisk',
+    'glyphicon-plus',
+    'glyphicon-euro',
+    'glyphicon-cloud',
+    'glyphicon-glass'
+  ]
+  $scope.current = 0
+  $scope.setCurrent = (c) ->
+    $scope.current = c || 0
+  $scope.isCurrent = (c) ->
+    return $scope.current == c
+  return</code></pre></code-hightlight></pane></tabs></div><div class="col-md-4"><div class="panel panel-default"><div class="panel-body"><section ng-controller="GalleryController as gallery"><center><span style="font-size: 180px" class="glyphicon thumbnail {{ data[current] }}"></span><div class="btn-group"><button ng-repeat="(i, icon) in data" ng-class="{ active: isCurrent(i) }" class="btn btn-default"><span ng-click="setCurrent(i)" class="glyphicon {{icon}}"></span></button></div></center></section></div></div></div></div><hr><h3>Директивы</h3><div class="row"><div class="col-sm-8"><p>Директивы - средство для создания собственных html елементов, под конкретные решения.</p><tabs><pane title="index.jade"><code-hightlight><pre><code>tabs
+  pane( title='Home' )
+    p
+      | Raw denim you probably haven't heard of them jean shorts Austin.
+ 
+  pane( title='Profile' )
+    p
+      | Food truck fixie locavore, accusamus mcsweeney's
+      | marfa nulla single-origin coffee squid.</code></pre></code-hightlight></pane><pane title="template.jade"><code-hightlight><pre><code>script( type='text/ng-template', id='tabs_tpl' )
+  .tabbable
+    ul.nav.nav-tabs
+      li( ng-repeat="pane in panes", ng-class='{ active: pane.selected }' )
+        a( href=true, ng-click='select(pane)', ) {{ pane.title }}
+    .tab-content( ng-transclude=true )
+ 
+script( type='text/ng-template', id='pane_tpl' )
+  .tab-pane( ng-class='{active: selected}', ng-transclude=true )</code></pre></code-hightlight></pane><pane title="tabs.coffee"><code-hightlight><pre><code>app.directive 'tabs', () ->
+  restrict: 'E'
+  transclude: true
+  scope: {}
+  replace: true
+  templateUrl: 'tabs_tpl'
+  controller: ($scope, $element) ->
+    panes = $scope.panes = []
+ 
+    $scope.select = (pane) ->
+      angular.forEach panes, (pane) -> pane.selected = false
+      pane.selected = true
+ 
+    @addPane = (pane) ->
+      $scope.select(pane) if not panes.length
+      panes.push pane
+ 
+    return
+  controllerAs: 'TabsController'
+ 
+app.directive 'pane', () ->
+  require: '^tabs',
+  restrict: 'E'
+  transclude: true
+  scope: { title: '@' }
+  replace: true
+  templateUrl: 'pane_tpl'
+  link: (scope, element, attrs, TabsController) ->
+    TabsController.addPane scope</code></pre></code-hightlight></pane></tabs></div><div class="col-sm-4"><div class="panel panel-default"><div class="panel-body"><tabs><pane title="Home"><p>Raw denim you probably haven't heard of them jean shorts Austin.</p></pane><pane title="Profile"><p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p></pane></tabs></div></div></div></div><hr></div></div><div class="row"><div class="container-fluid"><h2>Фабрика, сервис, провайдер???</h2><p>Грубо говоря, данные шаблоны позволяют насоздовать объектов в области видимости всего приложения.</p></div><div class="container-fluid"><h3>Factory</h3><p>Возвращает результат выполнения функции</p><code-hightlight><pre><code>app.factory, 'Foo', ->
   {
     property: 'bar'
     method: -> @property
@@ -21,7 +107,7 @@ app.service 'Bar', f == new f</code></pre></code-hightlight></div><div class="co
   BAR: 'BAZ'
  
 app.value 'foo',
-  bar: 'baz'</code></pre></code-hightlight><p>И используются аналогично, в общем конкретных отличий нет, только описываться может только объект, а для констант значения нельзя изменять.</p></div><div class="container-fluid"><h3>Зачем весь этот зоопарк?</h3><p>Вообще в angularjs есть только провайдер, все остальное это семантические дополнения. И соответнно когда мы описываем сервис, фабрику или что-то еще, то провайдер создается в любом случае.</p></div></div><h2>Роутеры</h2><code-hightlight><pre><code>app = angular.module 'x01d', [
+  bar: 'baz'</code></pre></code-hightlight><p>И используются аналогично, в общем конкретных отличий нет, только описываться может только объект, а для констант значения нельзя изменять.</p></div><div class="container-fluid"><h3>Зачем весь этот зоопарк?</h3><p>Вообще в angularjs есть только провайдер, все остальное это семантические дополнения. И соответнно когда мы описываем сервис, фабрику или что-то еще, то провайдер создается в любом случае.</p></div></div></script><script type="text/ng-template" id="todo_tpl"><h1>{{ message }}</h1></script><script type="text/ng-template" id="tabs_tpl"><div class="tabbable"><ul style="margin-bottom: 15px" class="nav nav-tabs"><li ng-repeat="pane in panes" ng-class="{ active: pane.selected }"><a href ng-click="select(pane)">{{ pane.title }}</a></li></ul><div ng-transclude class="tab-content"></div></div></script><script type="text/ng-template" id="pane_tpl"><div ng-class="{active: selected}" ng-transclude class="tab-pane"></div></script><script type="text/ng-template" id="components_tpl"><h2>Роутеры</h2><code-hightlight><pre><code>app = angular.module 'x01d', [
   'ngRoute'
 ]
  
@@ -37,4 +123,4 @@ app.config [
         controller:  'TodoController'
       .otherwise
         redirectTo:  '/home'
-]</code></pre></code-hightlight></div><div class="col-md-3"></div></div></script><script type="text/ng-template" id="todo_tpl"><h1>{{ message }}</h1></script></body></html>
+]</code></pre></code-hightlight></script></body></html>

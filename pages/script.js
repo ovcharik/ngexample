@@ -22412,9 +22412,59 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 }).call(this);
 
 (function() {
+  var tabsDirective;
+
+  tabsDirective = angular.module('x01d-tabs', []);
+
+  tabsDirective.directive('tabs', function() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {},
+      replace: true,
+      templateUrl: 'tabs_tpl',
+      controller: function($scope, $element) {
+        var panes;
+        panes = $scope.panes = [];
+        $scope.select = function(pane) {
+          angular.forEach(panes, function(pane) {
+            return pane.selected = false;
+          });
+          return pane.selected = true;
+        };
+        this.addPane = function(pane) {
+          if (!panes.length) {
+            $scope.select(pane);
+          }
+          return panes.push(pane);
+        };
+      },
+      controllerAs: 'TabsController'
+    };
+  });
+
+  tabsDirective.directive('pane', function() {
+    return {
+      require: '^tabs',
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        title: '@'
+      },
+      replace: true,
+      templateUrl: 'pane_tpl',
+      link: function(scope, element, attrs, TabsController) {
+        return TabsController.addPane(scope);
+      }
+    };
+  });
+
+}).call(this);
+
+(function() {
   var directives;
 
-  directives = angular.module('x01d-directives', ['x01d-code']);
+  directives = angular.module('x01d-directives', ['x01d-code', 'x01d-tabs']);
 
 }).call(this);
 
@@ -22439,9 +22489,36 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 }).call(this);
 
 (function() {
+  var galleryController;
+
+  galleryController = angular.module('x01d-gallery', []);
+
+  galleryController.controller('GalleryController', function($scope) {
+    $scope.data = ['glyphicon-asterisk', 'glyphicon-plus', 'glyphicon-euro', 'glyphicon-cloud', 'glyphicon-glass'];
+    $scope.current = 0;
+    $scope.setCurrent = function(c) {
+      return $scope.current = c || 0;
+    };
+    $scope.isCurrent = function(c) {
+      return $scope.current === c;
+    };
+  });
+
+}).call(this);
+
+(function() {
+  var componentsController;
+
+  componentsController = angular.module('x01d-components', []);
+
+  componentsController.controller('ComponentsController', function($scope) {});
+
+}).call(this);
+
+(function() {
   var controllers;
 
-  controllers = angular.module('x01d-controllers', ['x01d-home', 'x01d-todo']);
+  controllers = angular.module('x01d-controllers', ['x01d-home', 'x01d-todo', 'x01d-gallery', 'x01d-components']);
 
 }).call(this);
 
@@ -22455,6 +22532,9 @@ function ngViewFillContentFactory($compile, $controller, $route) {
       return $routeProvider.when('/home', {
         templateUrl: 'home_tpl',
         controller: 'HomeController'
+      }).when('/components', {
+        templateUrl: 'components_tpl',
+        controller: 'ComponentsController'
       }).when('/todo', {
         templateUrl: 'todo_tpl',
         controller: 'TodoController'
