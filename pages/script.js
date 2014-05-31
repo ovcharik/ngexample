@@ -22497,6 +22497,7 @@ function ngViewFillContentFactory($compile, $controller, $route) {
     $scope.data = ['glyphicon-asterisk', 'glyphicon-plus', 'glyphicon-euro', 'glyphicon-cloud', 'glyphicon-glass'];
     $scope.current = 0;
     $scope.setCurrent = function(c) {
+      console.log(c);
       return $scope.current = c || 0;
     };
     $scope.isCurrent = function(c) {

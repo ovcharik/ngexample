@@ -20,12 +20,10 @@
     .btn-group
       button.btn.btn-default(
         ng-repeat='(i, icon) in data',
-        ng-class='{ active: isCurrent(i) }'
+        ng-class='{ active: isCurrent(i) }',
+        ng-click='setCurrent(i)'
       )
-        span.glyphicon(
-          class='{{icon}}',
-          ng-click='setCurrent(i)'
-        )</code></pre></code-hightlight></pane><pane title="gallery.coffee"><code-hightlight><pre><code>galleryController = angular.module 'x01d-gallery', []
+        span.glyphicon( class='{{icon}}' )</code></pre></code-hightlight></pane><pane title="gallery.coffee"><code-hightlight><pre><code>galleryController = angular.module 'x01d-gallery', []
  
 galleryController.controller 'GalleryController', ($scope) ->
   $scope.data = [
@@ -40,7 +38,7 @@ galleryController.controller 'GalleryController', ($scope) ->
     $scope.current = c || 0
   $scope.isCurrent = (c) ->
     return $scope.current == c
-  return</code></pre></code-hightlight></pane></tabs></div><div class="col-md-4"><div class="panel panel-default"><div class="panel-body"><section ng-controller="GalleryController as gallery"><center><span style="font-size: 180px" class="glyphicon thumbnail {{ data[current] }}"></span><div class="btn-group"><button ng-repeat="(i, icon) in data" ng-class="{ active: isCurrent(i) }" class="btn btn-default"><span ng-click="setCurrent(i)" class="glyphicon {{icon}}"></span></button></div></center></section></div></div></div></div><hr><h3>Директивы</h3><div class="row"><div class="col-sm-8"><p>Директивы - средство для создания собственных html елементов, под конкретные решения.</p><tabs><pane title="index.jade"><code-hightlight><pre><code>tabs
+  return</code></pre></code-hightlight></pane></tabs></div><div class="col-md-4"><div class="panel panel-default"><div class="panel-body"><section ng-controller="GalleryController as gallery"><center><span style="font-size: 180px" class="glyphicon thumbnail {{ data[current] }}"></span><div class="btn-group"><button ng-repeat="(i, icon) in data" ng-class="{ active: isCurrent(i) }" ng-click="setCurrent(i)" class="btn btn-default"><span class="glyphicon {{icon}}"></span></button></div></center></section></div></div></div></div><hr><h3>Директивы</h3><div class="row"><div class="col-sm-8"><p>Директивы - средство для создания собственных html елементов, под конкретные решения.</p><tabs><pane title="index.jade"><code-hightlight><pre><code>tabs
   pane( title='Home' )
     p
       | Raw denim you probably haven't heard of them jean shorts Austin.
