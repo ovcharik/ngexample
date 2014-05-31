@@ -28,10 +28,13 @@ module.exports = (grunt) ->
         files:
           'build/index.js': [
             'coffee/directives/code_directive.coffee',
+            'coffee/directives/tabs_directive.coffee',
             'coffee/directives/directives.coffee',
             
             'coffee/controllers/home_controller.coffee',
             'coffee/controllers/todo_controller.coffee',
+            'coffee/controllers/gallery_controller.coffee',
+            'coffee/controllers/components_controller.coffee',
             'coffee/controllers/controllers.coffee',
             
             'coffee/app.coffee'

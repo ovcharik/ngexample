@@ -1,0 +1,22 @@
+script( type='text/ng-template', id='components_tpl' )
+  h2 Роутеры
+  code-hightlight
+    pre
+      code
+        | app = angular.module 'x01d', [
+        |   'ngRoute'
+        | ]
+        | 
+        | app.config [
+        |   '$routeProvider',
+        |   ($routeProvider) ->
+        |     $routeProvider
+        |       .when '/home',
+        |         templateUrl: 'home_tpl'
+        |         controller:  'HomeController'
+        |       .when '/todo',
+        |         templateUrl: 'todo_tpl'
+        |         controller:  'TodoController'
+        |       .otherwise
+        |         redirectTo:  '/home'
+        | ]

@@ -1,164 +1,352 @@
 
 script( type='text/ng-template', id='home_tpl' )
   .row
-    .col-md-9
+    .container-fluid
+      h2
+        a( href='https://angularjs.org/' target='_blank' ) AngularJS
+  
+  .row
+    .container-fluid
+      h2 Возможности
+      h3 Динамический html
       .row
-        .container-fluid
-          h2 Фабрика, сервис, провайдер???
+        .col-md-8
           p
-            Грубо говоря, данные шаблоны позволяют насоздовать объектов в области видимости всего приложения.
-        
-        .container-fluid
-          h3 Factory
+            | Технология 
+            code html
+            | предоставляет хорошие средства для описания документа, но плохие для работы с ним.
           p
-            Возвращает результат выполнения функции
+            | Некоторые js фреймворки решают эту проблему, но накладывают свои ограничения в плане написания кода. AngularJS решат эту проблему, и в этом он чем то похож на Polymer.
+          p
+            | Что бы начать работать с AngularJS даже не обязательно знать javascript.
           code-hightlight
             pre
               code
-                | app.factory, 'Foo', ->
-                |   {
-                |     property: 'bar'
-                |     method: -> @property
-                |   }
-          h4 Использование
-          code-hightlight
-            pre
-              code
-                | app.controller, 'BazCtrl', (Foo) ->
-                |   console.log Foo.method() # bar
-        
-        .container-fluid
-          h3 Service
-          p
-            | Возвращает объект класс (функции в js), то есть выполняется 
-            code new ServiceClass
-            |  и результат возвращается
-          code-hightlight
-            pre
-              code
-                | app.service, 'MyService', class
-                |   property: 'value'
-                |   method: -> @property
-          h4 Использование
-          p
-            | Используется сервис аналогично фабрике
-          code-hightlight
-            pre
-              code
-                | app.controller, 'BazCtrl', (MyService) ->
-                |   console.log MyService.method() # value
-        
-        .container-fluid
-          h3
-            Различия Service и Factory
-          code-hightlight
-            pre
-              code
-                | f = -> 'value'
-                | app.factory 'Foo', f == 'value'
-                | app.service 'Bar', f == new f
-        
-        .container-fluid
-          h3
-            | Provider
-          p
-            | Провайдер - это сервис с возможностью первичной настройки.
-          p
-            | Используется провайдер как и обычный сервис
-          code-hightlight
-            pre
-              code
-                | app.provider 'Foo', class
-                |   value = 'bar'
-                |   getValue: -> value
-                |   setValue: (v) -> value = v
-                |   $get: -> @getValue
-          p
-            code value
-            |  является приватной переменной, у провайдера есть методы 
-            code getValue
-            |  и 
-            code setValue
-            |  который возвращают или устанавливают значение переменной 
-            code value
-            | .
-          p
-            | Метод 
-            code $get
-            |  должен возвращать сервис, соответсвенно сервис 
-            code Foo
-            |  будет создан автоматически после запуска приложения.
-          p
-            | До запуска есть возможность сконфигурировать провайдер.
-          code-hightlight
-            pre
-              code
-                | app.config [
-                |   'FooProvider',
-                |   (FooProvider) ->
-                |     FooProvider.setValue('baz')
-                | ]
-          h4 Использование
-          code-hightlight
-            pre
-              code
-                | app.controller, 'BazCtrl', (Foo) ->
-                |   console.log Foo() # baz
-          p
-            | Таким образом сервис из провайдера образуется следующим образом:
-          code-hightlight
-            pre
-              code
-                | new (MyProvider.$get)
-        
-        .container-fluid
-          h3
-            code value
-            |  и 
-            code constant
-          p
-            | В angularjs есть два дополнительных сервиса 
-            code value
-            |  и 
-            code constant
-            | .
-          p
-            | Описываются они аналогично обычным сервисам
-          code-hightlight
-            pre
-              code
-                | app.constant 'FOO',
-                |   BAR: 'BAZ'
-                | 
-                | app.value 'foo',
-                |   bar: 'baz'
-          p
-            | И используются аналогично, в общем конкретных отличий нет, только описываться может только объект, а для констант значения нельзя изменять.
-        
-        .container-fluid
-          h3 Зачем весь этот зоопарк?
-          p
-            | Вообще в angularjs есть только провайдер, все остальное это семантические дополнения. И соответнно когда мы описываем сервис, фабрику или что-то еще, то провайдер создается в любом случае.
+                | .row
+                |   .col-sm-12
+                |     input( type='text', ng-model='v_name' placeholder='Введите имя' )
+                |   .col-sm-12( ng-show='v_name' )
+                |     hr
+                |     h3 Привет, {{ v_name }}!
+                |   .col-sm-12
+                |     hr
+                |   .col-sm-6
+                |     input( type='date',  ng-model='v_date' )
+                |     h4 {{ v_date | date }}
+                |   .col-sm-6
+                |     input( type='range', ng-model='v_range' )
+                |     h4 {{ v_range }}
+        .col-md-4
+          .panel.panel-default
+            .panel-body
+              .row
+                .col-sm-12
+                  input.form-control( type='text', ng-model='v_name' placeholder='Введите имя' )
+                .col-sm-12( ng-show='v_name' )
+                  hr
+                  h3 Привет, {{ v_name }}!
+                .col-sm-12
+                  hr
+                .col-sm-6
+                  input.form-control( type='date',  ng-model='v_date' )
+                  h4 {{ v_date | date }}
+                .col-sm-6
+                  input.form-control( type='range', ng-model='v_range' )
+                  h4 {{ v_range | currency }}
+          dl.dl-horizontal
+            dt
+              code ng-model
+            dd
+              | Директива двухстороннего связывания данных
+            dt
+              code ng-show
+            dd
+              | Директива отвечающая за отображение элемента
+            dt
+              code(ng-non-bindable=true) {{ var [| filter ] }}
+            dd
+              | Переменная описанная в подобной структуре будет автоматически подставляться в html, также доступны различные фильтры отображения, типа 
+              code currency
+              | , 
+              code date
+              | , и т.д.
       
-      h2 Роутеры
+      hr
+      h3 Контроллеры
+      .row
+        .col-md-8
+          p
+            | Контроллеры добавляют поведение html елементам. Позволяют автоматически изменять вид при обновлении модели и наоборот, без прослушивания событий и построения сложных коллбеков.
+          tabs
+            pane( title='gallery.jade' )
+              code-hightlight
+                pre
+                  code
+                    | section( ng-controller='GalleryController as gallery' )
+                    |   center
+                    |     span.glyphicon.thumbnail(
+                    |       style='font-size: 180px',
+                    |       class='{{ data[current] }}'
+                    |     )
+                    |     .btn-group
+                    |       button.btn.btn-default(
+                    |         ng-repeat='(i, icon) in data',
+                    |         ng-class='{ active: isCurrent(i) }'
+                    |       )
+                    |         span.glyphicon(
+                    |           class='{{icon}}',
+                    |           ng-click='setCurrent(i)'
+                    |         )
+            pane( title='gallery.coffee' )
+              code-hightlight
+                pre
+                  code
+                    | galleryController = angular.module 'x01d-gallery', []
+                    | 
+                    | galleryController.controller 'GalleryController', ($scope) ->
+                    |   $scope.data = [
+                    |     'glyphicon-asterisk',
+                    |     'glyphicon-plus',
+                    |     'glyphicon-euro',
+                    |     'glyphicon-cloud',
+                    |     'glyphicon-glass'
+                    |   ]
+                    |   $scope.current = 0
+                    |   $scope.setCurrent = (c) ->
+                    |     $scope.current = c || 0
+                    |   $scope.isCurrent = (c) ->
+                    |     return $scope.current == c
+                    |   return
+        .col-md-4
+          .panel.panel-default
+            .panel-body
+              section( ng-controller='GalleryController as gallery' )
+                center
+                  span.glyphicon.thumbnail(
+                    style='font-size: 180px',
+                    class='{{ data[current] }}'
+                  )
+                  .btn-group
+                    button.btn.btn-default(
+                      ng-repeat='(i, icon) in data',
+                      ng-class='{ active: isCurrent(i) }'
+                    )
+                      span.glyphicon(
+                        class='{{icon}}',
+                        ng-click='setCurrent(i)'
+                      )
+      
+      hr
+      h3 Директивы
+      .row
+        .col-sm-8
+          p
+            | Директивы - средство для создания собственных html елементов, под конкретные решения.
+          tabs
+            pane( title='index.jade' )
+              code-hightlight
+                pre
+                  code
+                    | tabs
+                    |   pane( title='Home' )
+                    |     p
+                    |       | Raw denim you probably haven't heard of them jean shorts Austin.
+                    | 
+                    |   pane( title='Profile' )
+                    |     p
+                    |       | Food truck fixie locavore, accusamus mcsweeney's
+                    |       | marfa nulla single-origin coffee squid.
+            pane( title='template.jade' )
+              code-hightlight
+                pre
+                  code
+                    | script( type='text/ng-template', id='tabs_tpl' )
+                    |   .tabbable
+                    |     ul.nav.nav-tabs
+                    |       li( ng-repeat="pane in panes", ng-class='{ active: pane.selected }' )
+                    |         a( href=true, ng-click='select(pane)', ) {{ pane.title }}
+                    |     .tab-content( ng-transclude=true )
+                    | 
+                    | script( type='text/ng-template', id='pane_tpl' )
+                    |   .tab-pane( ng-class='{active: selected}', ng-transclude=true )
+            pane( title='tabs.coffee' )
+              code-hightlight
+                pre
+                  code
+                    | app.directive 'tabs', () ->
+                    |   restrict: 'E'
+                    |   transclude: true
+                    |   scope: {}
+                    |   replace: true
+                    |   templateUrl: 'tabs_tpl'
+                    |   controller: ($scope, $element) ->
+                    |     panes = $scope.panes = []
+                    | 
+                    |     $scope.select = (pane) ->
+                    |       angular.forEach panes, (pane) -> pane.selected = false
+                    |       pane.selected = true
+                    | 
+                    |     @addPane = (pane) ->
+                    |       $scope.select(pane) if not panes.length
+                    |       panes.push pane
+                    | 
+                    |     return
+                    |   controllerAs: 'TabsController'
+                    | 
+                    | app.directive 'pane', () ->
+                    |   require: '^tabs',
+                    |   restrict: 'E'
+                    |   transclude: true
+                    |   scope: { title: '@' }
+                    |   replace: true
+                    |   templateUrl: 'pane_tpl'
+                    |   link: (scope, element, attrs, TabsController) ->
+                    |     TabsController.addPane scope
+        .col-sm-4
+          .panel.panel-default
+            .panel-body
+              tabs
+                pane( title='Home' )
+                  p Raw denim you probably haven't heard of them jean shorts Austin.
+                pane( title='Profile' )
+                  p Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
+      hr
+  
+  
+  .row
+    .container-fluid
+      h2 Фабрика, сервис, провайдер???
+      p
+        Грубо говоря, данные шаблоны позволяют насоздовать объектов в области видимости всего приложения.
+    
+    .container-fluid
+      h3 Factory
+      p
+        Возвращает результат выполнения функции
       code-hightlight
         pre
           code
-            | app = angular.module 'x01d', [
-            |   'ngRoute'
-            | ]
-            | 
+            | app.factory, 'Foo', ->
+            |   {
+            |     property: 'bar'
+            |     method: -> @property
+            |   }
+      h4 Использование
+      code-hightlight
+        pre
+          code
+            | app.controller, 'BazCtrl', (Foo) ->
+            |   console.log Foo.method() # bar
+    
+    .container-fluid
+      h3 Service
+      p
+        | Возвращает объект класс (функции в js), то есть выполняется 
+        code new ServiceClass
+        |  и результат возвращается
+      code-hightlight
+        pre
+          code
+            | app.service, 'MyService', class
+            |   property: 'value'
+            |   method: -> @property
+      h4 Использование
+      p
+        | Используется сервис аналогично фабрике
+      code-hightlight
+        pre
+          code
+            | app.controller, 'BazCtrl', (MyService) ->
+            |   console.log MyService.method() # value
+    
+    .container-fluid
+      h3
+        Различия Service и Factory
+      code-hightlight
+        pre
+          code
+            | f = -> 'value'
+            | app.factory 'Foo', f == 'value'
+            | app.service 'Bar', f == new f
+    
+    .container-fluid
+      h3
+        | Provider
+      p
+        | Провайдер - это сервис с возможностью первичной настройки.
+      p
+        | Используется провайдер как и обычный сервис
+      code-hightlight
+        pre
+          code
+            | app.provider 'Foo', class
+            |   value = 'bar'
+            |   getValue: -> value
+            |   setValue: (v) -> value = v
+            |   $get: -> @getValue
+      p
+        code value
+        |  является приватной переменной, у провайдера есть методы 
+        code getValue
+        |  и 
+        code setValue
+        |  который возвращают или устанавливают значение переменной 
+        code value
+        | .
+      p
+        | Метод 
+        code $get
+        |  должен возвращать сервис, соответсвенно сервис 
+        code Foo
+        |  будет создан автоматически после запуска приложения.
+      p
+        | До запуска есть возможность сконфигурировать провайдер.
+      code-hightlight
+        pre
+          code
             | app.config [
-            |   '$routeProvider',
-            |   ($routeProvider) ->
-            |     $routeProvider
-            |       .when '/home',
-            |         templateUrl: 'home_tpl'
-            |         controller:  'HomeController'
-            |       .when '/todo',
-            |         templateUrl: 'todo_tpl'
-            |         controller:  'TodoController'
-            |       .otherwise
-            |         redirectTo:  '/home'
+            |   'FooProvider',
+            |   (FooProvider) ->
+            |     FooProvider.setValue('baz')
             | ]
-    .col-md-3
+      h4 Использование
+      code-hightlight
+        pre
+          code
+            | app.controller, 'BazCtrl', (Foo) ->
+            |   console.log Foo() # baz
+      p
+        | Таким образом сервис из провайдера образуется следующим образом:
+      code-hightlight
+        pre
+          code
+            | new (MyProvider.$get)
+    
+    .container-fluid
+      h3
+        code value
+        |  и 
+        code constant
+      p
+        | В angularjs есть два дополнительных сервиса 
+        code value
+        |  и 
+        code constant
+        | .
+      p
+        | Описываются они аналогично обычным сервисам
+      code-hightlight
+        pre
+          code
+            | app.constant 'FOO',
+            |   BAR: 'BAZ'
+            | 
+            | app.value 'foo',
+            |   bar: 'baz'
+      p
+        | И используются аналогично, в общем конкретных отличий нет, только описываться может только объект, а для констант значения нельзя изменять.
+    
+    .container-fluid
+      h3 Зачем весь этот зоопарк?
+      p
+        | Вообще в angularjs есть только провайдер, все остальное это семантические дополнения. И соответнно когда мы описываем сервис, фабрику или что-то еще, то провайдер создается в любом случае.

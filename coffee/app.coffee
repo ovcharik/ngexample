@@ -11,6 +11,9 @@ app.config [
       .when '/home',
         templateUrl: 'home_tpl'
         controller:  'HomeController'
+      .when '/components',
+        templateUrl: 'components_tpl'
+        controller:  'ComponentsController'
       .when '/todo',
         templateUrl: 'todo_tpl'
         controller:  'TodoController'
